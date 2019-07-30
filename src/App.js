@@ -1,10 +1,13 @@
 import React from 'react'
+
+import MHeader from './components/m-header/Header'
+
 import './App.styl'
 
 function App() {
   return (
-    <div class="test">
-      红色文字
+    <div>
+      <MHeader />
     </div>
   );
 }
