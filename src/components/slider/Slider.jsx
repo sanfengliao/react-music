@@ -10,9 +10,9 @@ class Slider extends React.Component {
     interval: 1000
   }
   static propTypes = {
-    loop: PropTypes.bool.isRequired,
-    autoPlay: PropTypes.bool.isRequired,
-    interval: PropTypes.number.isRequired
+    loop: PropTypes.bool.isRequired, // 是否循环
+    autoPlay: PropTypes.bool.isRequired, // 是否自动播放
+    interval: PropTypes.number.isRequired // 图片轮播间隔
   }
   constructor(props) {
     super(props)
@@ -45,9 +45,12 @@ class Slider extends React.Component {
   componentWillUnmount() {
     clearInterval(this.timer)
   }
+  // 初始化轮播元素宽度和轮播元素父元素宽度
   _initialSliderWidth = () => {
     const { children } = this.props
+    // 获取最外层父元素的宽度
     let clientWidth = this.sliderRef.current.clientWidth
+    // 初始化轮播元素宽度
     for (let i = 0; i < children.length; ++i) {
       this.sliderItemRefs[i].current.style.width = clientWidth + 'px'
     }
@@ -55,8 +58,10 @@ class Slider extends React.Component {
     if (this.props.loop) {
       width += 2 * clientWidth
     }
+    // 轮播元素父元素宽度
     this.sliderGroupRef.current.style.width = width + 'px'
   }
+  // 初始化better-scroll
   _initialBScroll = () => {
     this.slider = new BScroll(this.sliderRef.current, {
       scrollX: true,
@@ -68,6 +73,8 @@ class Slider extends React.Component {
         threshold: 0.3
       }
     })
+
+    // 修改小圆点激活的位置
     this.slider.on('scrollEnd', () => {
       let currentIndex = this.slider.getCurrentPage().pageX
       this.setState({
@@ -75,6 +82,7 @@ class Slider extends React.Component {
       })
     })
   }
+  // 自动轮播
   _autoPlay = () => {
     this.timer = setInterval(() => {
       this.slider.next(400)
