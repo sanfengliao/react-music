@@ -149,3 +149,12 @@ function App() {
 
 ```
 这样就完成了基础的导航功能了
+
+#### Recommend页面开发
+* 封装滚动组件
+为什么先要封装Scroll组件呢？ 因为项目中很多地方要要用到滚动组件，所以，先封装了再说
+Scroll使用了better-scroll这个库，better-scroll 是一款重点解决移动端（已支持 PC）各种滚动场景需求的插件。
+```shell
+npm install better-scroll
+```
+better-scroll的相关文档戳: 
