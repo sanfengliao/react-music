@@ -2,6 +2,7 @@ import React from 'react'
 import Confirm from '../../components/confirm/Comfirm'
 import Switch from '../../components/switch/Switch'
 import ProgressCircle from '../../components/progress-circle/ProgressCircle'
+import ProgressBar from '../../components/progress-bar/ProgressBar'
 
 class Singer extends React.Component {
   state = {
@@ -25,6 +26,7 @@ class Singer extends React.Component {
         <button onClick={() => {this.setState({visible: true})}}>打开</button>
         <Switch switches={['A', 'B']}></Switch>
         <ProgressCircle percent={0.6} />
+        <ProgressBar />
       </div>
     )
   }

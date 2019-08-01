@@ -21,13 +21,11 @@ export default class ProgressCircle extends React.Component {
     let dashOffset = (1 - percent) * this.dashArray
     return (
       <div className="progress-circle">
-        <div class="progress-circle">
-          <svg width={radius} height={radius} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-              <circle class="progress-background" r="50" cx="50" cy="50" fill="transparent"/>
-              <circle class="progress-bar" r="50" cx="50" cy="50" fill="transparent" stroke-dasharray={this.dashArray}stroke-dashoffset={dashOffset} />
-          </svg>
-          {this.props.children}
-        </div>
+        <svg width={radius} height={radius} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <circle className="progress-background" r="50" cx="50" cy="50" fill="transparent"/>
+            <circle className="progress-bar" r="50" cx="50" cy="50" fill="transparent" strokeDasharray={this.dashArray} strokeDashoffset={dashOffset} />
+        </svg>
+        {this.props.children}
       </div>
     )
   }
