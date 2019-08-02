@@ -5,3 +5,7 @@ export const commonParams = {
   notice: 0,
   format: 'json'
 }
+
+export const options = {
+  param: "jsonpCallback"
+}

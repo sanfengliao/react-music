@@ -7,7 +7,7 @@ const ajax = (url, params, method = 'get') => {
       url,
       method
     }
-    if (method.toLowerCase === 'get') {
+    if (method.toLowerCase() === 'get') {
       config['params'] = params
     } else {
       config['data'] = params 
@@ -19,5 +19,6 @@ const ajax = (url, params, method = 'get') => {
     })
   })
 }
+
 
 export default ajax

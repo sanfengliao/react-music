@@ -34,8 +34,7 @@ class Recommend extends React.Component {
     return (
       <div className="recommend">
         {
-          songList.length > 0 && (
-            <div>
+            songList.length > 0 && (
               <Scroll data={songList}>
                 <div className="slider-wrapper">
                   {
@@ -73,7 +72,6 @@ class Recommend extends React.Component {
                   </ul>
                 </div>
               </Scroll>
-            </div>
           )
         }
         {

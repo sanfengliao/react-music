@@ -8,5 +8,5 @@ export const getRecommend = async () => {
     needNewCode: 1,
     uin: 0
   })
-  return ajax('/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg', data)
+  return ajax('/api/v1/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg', data)
 }

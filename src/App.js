@@ -6,7 +6,7 @@ import Tab from './components/tab/Tab'
 
 import './App.styl'
 import Recommend from './pages/recommend/Recommend';
-import Singer from './pages/singer/Singer'
+import SingerList from './pages/singer-list/SingerList'
 import Rank from './pages/rank/Rank';
 import Search from './pages/search/Search';
 
@@ -18,7 +18,7 @@ function App() {
         <Tab />
         <Switch>
           <Route path="/recommend" component={Recommend}/>
-          <Route path="/singer" component={Singer} />
+          <Route path="/singer" component={SingerList} />
           <Route path="/rank" component={Rank}/>
           <Route path="/search" component={Search} />
           <Redirect to="/recommend" />

@@ -41,7 +41,6 @@ export default class Scroll extends React.Component {
       this.scroll && this.scroll.scrollToElement.apply(this.BSCroll, arguments);
   }
   componentDidMount() {
-    console.log('scroll mounted')
     this.scroll = new BSCroll(this.scrollRef.current, {
       click: this.props.click,
       probeType: this.props.probeType
