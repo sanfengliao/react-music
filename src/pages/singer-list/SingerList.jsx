@@ -1,12 +1,11 @@
 import React from 'react'
-import Confirm from '../../components/confirm/Comfirm'
-import Switch from '../../components/switch/Switch'
-import ProgressCircle from '../../components/progress-circle/ProgressCircle'
-import ProgressBar from '../../components/progress-bar/ProgressBar'
+
+import ListView from '../../components/list-view/ListView'
 import { getSingerList } from '../../api/singer'
 import Singer from '../../common/js/singer'
 import { OK_CODE } from '../../config'
 
+import './index.styl'
 
 const HOT_NAME = '热门'
 const HOT_NAME_LEN = 10
@@ -63,8 +62,8 @@ class SingerList extends React.Component {
   }
   render() {
     return (
-      <div>
-        
+      <div className="singer-list">
+        <ListView data={this.state.singerList}/>
       </div>
     )
   }

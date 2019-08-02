@@ -26,19 +26,19 @@ export default class Scroll extends React.Component {
     this.scrollRef = React.createRef()
   }
   refresh = () => {
-      this.scroll && this.scroll.refresh();
+    this.scroll && this.scroll.refresh();
   }
   enable = () => {
-      this.scroll && this.scroll.enable();
+    this.scroll && this.scroll.enable();
   }
   disable = () => {
-      this.scroll && this.scroll.disable();
+    this.scroll && this.scroll.disable();
   }
   scrollTo() {
-      this.scroll && this.scroll.scrollTo.apply(this.BSCroll, arguments);
+    this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments);
   }
   scrollToElement() {
-      this.scroll && this.scroll.scrollToElement.apply(this.BSCroll, arguments);
+    this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments);
   }
   componentDidMount() {
     this.scroll = new BSCroll(this.scrollRef.current, {
@@ -46,26 +46,28 @@ export default class Scroll extends React.Component {
       probeType: this.props.probeType
     })
 
-    if (this.listenScroll) {
+    if (this.props.listenScroll) {
       this.scroll.on('scroll', (pos) => {
         this.props.onScroll && this.props.onScroll(pos)
       })
     }
 
-    if (this.pullup) {
+    if (this.props.pullup) {
       this.scroll.on('scrollEnd', (pos) => {
         this.props.onScrollToEnd && this.props.onScrollToEnd(pos)
       })
     }
   }
-  componentWillReceiveProps() {
-    console.log('receive props')
+  /* 优化 */
+  shouldComponentUpdate(nextProps) {
+    return nextProps.data !== this.props.data
+  }
+  componentDidUpdate() {
     this.scroll && this.scroll.refresh()
   }
   render() {
-    console.log('render')
     return (
-      <div ref={this.scrollRef} className="scroll__wrapper" style={{height: '100%', overflow: 'hidden'}}>
+      <div ref={this.scrollRef} className="scroll__wrapper" style={{width: '100%', height: '100%', overflow: 'hidden'}}>
         <div>
           {this.props.children}
         </div>
