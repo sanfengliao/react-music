@@ -106,20 +106,20 @@ class Player extends React.Component {
   }
 
 
-  ready = () => {
+  ready = (e) => {
 
   }
 
-  error = () => {
+  error = (e) => {
 
   }
 
 
-  onTimeUpdate = () => {
+  onTimeUpdate = (e) => {
 
   }
 
-  end = () => {
+  end = (e) => {
 
   }
 

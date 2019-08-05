@@ -44,14 +44,14 @@ class Rank extends React.Component {
               <ul>
                 {
                   topList.map((item, index) =>(
-                    <li key={index} className="item" onClick={(e) => this.selectItem(item)}>
+                    <li key={index} className="top-item" onClick={(e) => this.selectItem(item)}>
                       <div className="icon">
                         <img width="100" height="100" src={item.picUrl} />
                       </div>
-                      <ul className="songlist">
+                      <ul className="songList">
                         {
                           item.songList.map((song, index) => (
-                            <li className="song">
+                            <li className="song" key={index}>
                               <span>{index + 1}</span>
                               <span>{song.songname + song.singername}</span>
                             </li>

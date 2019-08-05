@@ -43,7 +43,7 @@ class TopList extends React.Component {
     const { rank, songs } = this.state
     const { topList } = this.props
     const title = topList.topTitle
-    const bgImage = this.songs.length > 0 ? this.songs[0].image : ''
+    const bgImage = songs.length > 0 ? songs[0].image : ''
     return (
       <div className="toplist">
         <MusicList rank={rank} songs={songs} title={title} bgImage={bgImage}/>

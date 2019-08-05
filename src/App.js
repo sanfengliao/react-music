@@ -17,7 +17,7 @@ function App() {
       <Fragment>
         <MHeader />
         <Tab />
-        <Route path="/" render={() => <Redirect to="/recommend" />} />
+        <Route exact path="/" render={() => <Redirect to="/recommend" />} />
         <Route path="/recommend" children={(props) => <Recommend {...props} />} />
         <Route path="/singer" children={(props) => <SingerList {...props} />} />
         <Route path="/rank" children={(props) => <Rank {...props} />} />

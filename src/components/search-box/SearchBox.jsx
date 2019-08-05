@@ -10,7 +10,7 @@ export default class SearchBox extends React.Component {
   }
   static propTypes ={
     onQueryChange: PropTypes.func,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
   }
   state = {
     query: ''
@@ -19,13 +19,19 @@ export default class SearchBox extends React.Component {
     this.setState({
       query: e.target.value
     })
-    this.props.onQueryChange(e.target.value)
+    this.props.onQueryChange && this.props.onQueryChange(e.target.value)
   }
   clear = () => {
     this.setState({
       query: ''
     })
     this.props.onQueryChange && this.props.onQueryChange('')
+  }
+  setQuery = (query) => {
+    this.setState({
+      query
+    })
+    this.props.onQueryChange && this.props.onQueryChange(query)
   }
   render() {
     return (

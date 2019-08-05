@@ -45,7 +45,7 @@ export default class SongList extends React.Component {
               <li key={song.id} className="item" onClick={(e) => this.onSelectItem(song, index)}>
                 {
                   rank && (
-                    <div className="rank">
+                    <div className="song-rank">
                       <span className={this.getRankCls(index)}>{this.getRankText(index)}</span>
                     </div>
                   )

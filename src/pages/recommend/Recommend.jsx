@@ -29,6 +29,9 @@ class Recommend extends React.Component {
       })
     }
   }
+  handlePlayList = () => {
+    console.log('----')
+  }
   render() {
     const { slider, songList } = this.state
     return (
@@ -81,5 +84,6 @@ class Recommend extends React.Component {
     )
   }
 }
+
 
 export default wrapAnimation(Recommend)

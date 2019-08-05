@@ -28,12 +28,14 @@ class MusicList extends React.Component {
   static defaultProps = {
     title: '',
     bgImage: '',
-    songs: []
+    songs: [],
+    rank: false
   }
   static propTypes = {
     title: PropTypes.string,
     bgImage: PropTypes.string,
-    songs: PropTypes.array
+    songs: PropTypes.array,
+    rank: PropTypes.bool
   }
   goBack = () => {
     this.props.history.goBack()
@@ -80,7 +82,7 @@ class MusicList extends React.Component {
     this.listRef.current.style.top = `${this.imageHeight}px`
   }
   render() {
-    const { title, bgImage, songs } = this.props
+    const { title, bgImage, songs, rank } = this.props
     const bgImageStyle = `url(${bgImage})`
     return (
       <div className="music-list">
@@ -101,7 +103,7 @@ class MusicList extends React.Component {
         <div ref={this.listRef} className="list">
           <Scroll overflowHidden={false} data={songs} listenScroll={this.listenScroll} probeType={this.probeType} onScroll={this.onScroll}>
             <div className="song-list-wrapper">
-              <SongList songs={songs} onSelect={this.onSelect}/>
+              <SongList rank={rank} songs={songs} onSelect={this.onSelect}/>
             </div>
           </Scroll>
           {
