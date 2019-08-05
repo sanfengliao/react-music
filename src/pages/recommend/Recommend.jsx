@@ -4,7 +4,7 @@ import { OK_CODE } from '../../config';
 import Slider from '../../components/slider/Slider';
 import Scroll from '../../components/scroll/Scroll'
 import Loading from '../../components/loading/Loading'
-
+import wrapAnimation from '../../components/wrapper-animation/wrapperAnimation'
 import './index.styl'
 
 class Recommend extends React.Component {
@@ -30,7 +30,7 @@ class Recommend extends React.Component {
     }
   }
   render() {
-    const { slider, songList } = this.state 
+    const { slider, songList } = this.state
     return (
       <div className="recommend">
         {
@@ -82,4 +82,4 @@ class Recommend extends React.Component {
   }
 }
 
-export default Recommend
+export default wrapAnimation(Recommend)

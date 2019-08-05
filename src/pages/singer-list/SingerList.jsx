@@ -8,9 +8,9 @@ import { getSingerList } from '../../api/singer'
 import Singer from '../../common/js/singer'
 import { OK_CODE } from '../../config'
 import { setSinger } from '../../store/actions'
-
 import './index.styl'
 import SingerDetail from '../singer-detail/SingerDetail';
+import wrapAnimation from '../../components/wrapper-animation/wrapperAnimation';
 
 const HOT_NAME = '热门'
 const HOT_NAME_LEN = 10
@@ -89,4 +89,4 @@ class SingerList extends React.Component {
 
 export default connect(null, {
   setSinger
-})(withRouter(SingerList))
+})(withRouter(wrapAnimation(SingerList)))

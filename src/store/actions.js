@@ -22,3 +22,8 @@ export const setFullScreen = (fullScreen) => ({
   type: types.SET_FULLSCREEN,
   fullScreen
 })
+
+export const setTopList = (topList) => ({
+  type: types.SET_TOP_LIST,
+  topList
+})

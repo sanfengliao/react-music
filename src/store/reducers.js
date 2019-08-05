@@ -44,6 +44,8 @@ export default function reducer(state=initialState, action) {
         .set('playing', true)
     case types.SET_FULLSCREEN:
       return state.set('fullScreen', action.fullScreen)
+    case types.SET_TOP_LIST:
+      return state.set('topList', action.topList)
     default:
       return state
   }

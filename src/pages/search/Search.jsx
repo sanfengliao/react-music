@@ -1,5 +1,5 @@
 import React from 'react'
-
+import wrapAnimation from '../../components/wrapper-animation/wrapperAnimation'
 class Search extends React.Component {
   render() {
     return (
@@ -8,4 +8,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search
+export default wrapAnimation(Search)

@@ -28,7 +28,7 @@ export default class Switch extends React.Component {
       <ul className="switches">
         {
           switches.map((item, index) => (
-            <li className={currentIndex === index ? 'switch-item active' : 'switch-item'} key={index} onClick={(e) => this.switchItem(index, e)}>{item}</li>
+            <li className={currentIndex === index ? 'switch-item active' : 'switch-item'} key={index} onClick={(e) => this.switchItem(index, e)}>{item.name}</li>
           ))
         }
       </ul>
