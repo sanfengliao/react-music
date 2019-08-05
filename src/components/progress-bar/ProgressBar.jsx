@@ -48,8 +48,8 @@ export default class ProgressBar extends React.Component {
     this.props.onPercentChange && this.props.onPercentChange(percent)
   }
 
-  componentWillReceiveProps(props) {
-    let percent = props.percent
+  componentDidUpdate() {
+    let percent = this.props.percent
     if (percent > 0 && !this.touch.inital) {
       const barWidth = this.progressBarRef.current.clientWidth - BTN_WIDTH
       const offset = barWidth * percent

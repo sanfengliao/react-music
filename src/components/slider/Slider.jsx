@@ -35,6 +35,7 @@ class Slider extends React.Component {
       this._autoPlay()
     }
     window.addEventListener('resize', () => {
+      console.log('resize')
       if (!this.slider) {
         return
       }

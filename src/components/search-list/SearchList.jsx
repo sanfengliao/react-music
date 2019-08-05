@@ -35,18 +35,18 @@ export default class SearchList extends React.Component {
     return (
       <div className="search-list" v-show="searches.length" style={{display: display}}>
         <TransitionGroup component={UlCom}>
-          <CSSTransition classNames='list' timeout={300}>
             {
               searches.map((item, index) => (
-                <li key={item} className="search-item" onClick={(e) => this.onSelectItem(item, e)}>
-                  <span class="text">{item}</span>
-                  <span class="icon" onClick={(e) => this.onDeleteItem(item, e)}>
-                    <i class="icon-delete"></i>
-                  </span>
-                </li>
+                <CSSTransition  key={item} classNames='list' timeout={300}>
+                  <li className="search-item" onClick={(e) => this.onSelectItem(item, e)}>
+                    <span className="text">{item}</span>
+                    <span className="icon" onClick={(e) => this.onDeleteItem(item, e)}>
+                      <i className="icon-delete"></i>
+                    </span>
+                  </li>
+                </CSSTransition>
               ))
-            }
-          </CSSTransition>
+            }  
         </TransitionGroup>
       </div>
     )

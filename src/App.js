@@ -9,6 +9,7 @@ import Recommend from './pages/recommend/Recommend';
 import SingerList from './pages/singer-list/SingerList'
 import Rank from './pages/rank/Rank';
 import Search from './pages/search/Search';
+import Player from './components/player/Player';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/search" component={Search} />
           <Redirect to="/recommend" />
         </Switch>
+        <Player />
       </Fragment>
     </BrowserRouter>
   );

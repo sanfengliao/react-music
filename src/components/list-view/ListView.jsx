@@ -14,7 +14,8 @@ class ListView extends React.Component {
     data: []
   }
   static propTypes = {
-    data: PropTypes.array
+    data: PropTypes.array,
+    onSelectItem: PropTypes.func
   }
   state = {
     scrollY: 0,
@@ -39,6 +40,7 @@ class ListView extends React.Component {
 
   onSelectItem = (item, e) => {
     e.stopPropagation()
+    this.props.onSelectItem && this.props.onSelectItem(item)
   }
 
   onTouchStart = (e) => {
@@ -70,7 +72,7 @@ class ListView extends React.Component {
       scrollY,
     })
     this.onScrollYChange(scrollY)
-    this.scrollRef.scrollToElement(this.listGroupRefs[index].current, 0)
+    this.scrollRef.scrollToElement(this.listGroupRefs[index], 0)
   }
 
   onScrollYChange = (newY) => {
@@ -132,7 +134,7 @@ class ListView extends React.Component {
     let height = 0
     this.heightList.push(height)
     for (let i = 0; i < list.length; i++) {
-      let item = list[i].current
+      let item = list[i]
       height += item.clientHeight
       this.heightList.push(height)
     }
@@ -152,7 +154,7 @@ class ListView extends React.Component {
           <ul>
             {
               data.map((group, index) => (
-                <li key={group.title} className="list-group" ref={this.listGroupRefs[index]}>
+                <li key={group.title} className="list-group" ref={ref => this.listGroupRefs[index] = ref}>
                   <h2 className="list-group-title">{group.title}</h2>
                   <ul>
                     {

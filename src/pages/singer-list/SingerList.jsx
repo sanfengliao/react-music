@@ -1,11 +1,16 @@
 import React from 'react'
+import { withRouter, Route } from 'react-router-dom'
+import { CSSTransition } from 'react-transition-group'
+import { connect } from 'react-redux'
 
 import ListView from '../../components/list-view/ListView'
 import { getSingerList } from '../../api/singer'
 import Singer from '../../common/js/singer'
 import { OK_CODE } from '../../config'
+import { setSinger } from '../../store/actions'
 
 import './index.styl'
+import SingerDetail from '../singer-detail/SingerDetail';
 
 const HOT_NAME = '热门'
 const HOT_NAME_LEN = 10
@@ -60,13 +65,28 @@ class SingerList extends React.Component {
       singerList: hot
     })
   }
+  onSelectItem = (item) => {
+    this.props.setSinger(item)
+    this.props.history.push(`/singer/${item.id}`)
+  }
   render() {
     return (
       <div className="singer-list">
-        <ListView data={this.state.singerList}/>
+        <ListView data={this.state.singerList} onSelectItem={this.onSelectItem}/>
+        <Route path="/singer/:id" render={(props) => {
+          return(
+            <CSSTransition in={true} classNames="slide" timeout={3000}>
+              <SingerDetail />
+            </CSSTransition>
+          )
+        }} />
       </div>
     )
   }
 }
 
-export default SingerList
+
+
+export default connect(null, {
+  setSinger
+})(withRouter(SingerList))

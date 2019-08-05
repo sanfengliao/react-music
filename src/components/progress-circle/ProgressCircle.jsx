@@ -18,7 +18,7 @@ export default class ProgressCircle extends React.Component {
   }
   render() {
     const { radius, percent } = this.props
-    let dashOffset = (1 - percent) * this.dashArray
+    let dashOffset = (1 - percent) * this.dashArray || 0
     return (
       <div className="progress-circle">
         <svg width={radius} height={radius} viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">

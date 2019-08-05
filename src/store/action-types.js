@@ -1,0 +1,4 @@
+export const SET_SINGER = 'SET_SINGER'
+export const SELECT_PLAY = 'SELECT_PLAY'
+export const RANDOM_PLAY = 'RANDOM_PLAY'
+export const SET_FULLSCREEN = 'SET_FULLSCREEN'

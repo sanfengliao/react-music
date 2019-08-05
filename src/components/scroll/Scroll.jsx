@@ -8,7 +8,8 @@ export default class Scroll extends React.Component {
     click: true,
     data: [],
     listenScroll: false,
-    pullup: false
+    pullup: false,
+    overflowHidden: true
   }
   static propTypes = {
     probeType: PropTypes.number.isRequired,
@@ -17,7 +18,8 @@ export default class Scroll extends React.Component {
     listenScroll: PropTypes.bool.isRequired,
     pullup: PropTypes.bool.isRequired,
     onScroll: PropTypes.func,
-    onScrollToEnd: PropTypes.func
+    onScrollToEnd: PropTypes.func,
+    overflowHidden: PropTypes.bool
   }
   constructor(props) {
     super(props)
@@ -66,8 +68,9 @@ export default class Scroll extends React.Component {
     this.scroll && this.scroll.refresh()
   }
   render() {
+    let overflow = this.props.overflowHidden ? 'hidden' : ''
     return (
-      <div ref={this.scrollRef} className="scroll__wrapper" style={{width: '100%', height: '100%', overflow: 'hidden'}}>
+      <div ref={this.scrollRef} className="scroll__wrapper" style={{width: '100%', height: '100%', overflow: overflow}}>
         <div>
           {this.props.children}
         </div>

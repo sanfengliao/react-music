@@ -9,7 +9,7 @@ class Rank extends React.Component {
       <div className="">
         <NoResult />
         <SearchBox onQueryChange={query => console.log(query)}/>
-        <SearchList searches={[1, 2]} />
+        <SearchList searches={[1, 2]}/>
       </div>
     )
   }
