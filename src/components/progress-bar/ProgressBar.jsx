@@ -24,6 +24,7 @@ export default class ProgressBar extends React.Component {
     const react = this.progressBarRef.current.getBoundingClientRect()
     const offsetWidth = e.pageX - react.left
     this._offset(offsetWidth)
+    this._trigerParent()
   }
   onTouchStart = (e) => {
     this.touch.initial = true
@@ -34,6 +35,7 @@ export default class ProgressBar extends React.Component {
     const deltaX = e.touches[0].pageX - this.touch.startX
     const offsetWidth = Math.min(this.progressBarRef.current.clientWidth - BTN_WIDTH, Math.max(0, deltaX + this.touch.left))
     this._offset(offsetWidth)
+    this._trigerParent()
   }
   onTouchEnd = (e) => {
     this.touch.inital = false
@@ -53,7 +55,7 @@ export default class ProgressBar extends React.Component {
     if (percent > 0 && !this.touch.inital) {
       const barWidth = this.progressBarRef.current.clientWidth - BTN_WIDTH
       const offset = barWidth * percent
-      this.offset(offset)
+      this._offset(offset)
     }
   }
 
