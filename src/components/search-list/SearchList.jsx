@@ -31,13 +31,12 @@ export default class SearchList extends React.Component {
 
   render() {
     const { searches } = this.props
-    let display = searches.length ? 'block': 'none'
     return (
-      <div className="search-list" v-show="searches.length" style={{display: display}}>
+      <div className="search-list" v-show="searches.length">
         <TransitionGroup component={UlCom}>
             {
               searches.map((item, index) => (
-                <CSSTransition  key={item} classNames='list' timeout={300}>
+                <CSSTransition  key={item} classNames='search-list' timeout={300}>
                   <li className="search-item" onClick={(e) => this.onSelectItem(item, e)}>
                     <span className="text">{item}</span>
                     <span className="icon" onClick={(e) => this.onDeleteItem(item, e)}>

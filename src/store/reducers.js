@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 import * as types from './action-types'
 import { playMode } from '../common/js/config'
 import { shuffle } from '../common/js/utils';
-import { saveFavorite, deleteFavorite, loadFavorite, savePlay, loadPlay, loadSearch } from '../common/js/cache';
+import { saveFavorite, deleteFavorite, loadFavorite, savePlay, loadPlay, loadSearch, saveSearch, deleteSearch, clearSearch } from '../common/js/cache';
 
 const initialState = Immutable.fromJS({
   singer: {},
@@ -111,6 +111,12 @@ export default function reducer(state=initialState, action) {
       return state.set('playList', Immutable.List(__playList)).set('sequenceList', Immutable.List(_sequenceList)).set('currentIndex', _currentIndex).set('fullScreen', true).set('playing', true)
     case types.SAVE_PLAY_HISTORY:
       return state.set('playHistory', Immutable.List(savePlay(action.song)))
+    case types.SAVE_SEARCH_HISTORY:
+      return state.set('searchHistory', Immutable.List(saveSearch(action.query)))
+    case types.DELETE_SEARCH_HISTORY:
+      return state.set('searchHistory', Immutable.List(deleteSearch(action.query)))
+    case types.CLEAR_SEARCH_HISTORY:
+      return state.set('searchHistory', clearSearch())
     default:
       return state
   }

@@ -116,12 +116,6 @@ class PlayList extends React.Component {
                 </TransitionGroup>
               </Scroll>
             </div>
-            <div className="list-operate">
-              <div className="add">
-                <i className="icon-add"></i>
-                <span className="text">添加歌曲到播放队列</span>
-              </div>
-            </div>
             <div className="list-close" onClick={this.close}>
               <span>关闭</span>
             </div>

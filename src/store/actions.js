@@ -76,3 +76,17 @@ export const savePlayHistory = (song) => ({
   type: types.SAVE_PLAY_HISTORY,
   song
 })
+
+export const saveSearchHistory = (query) => ({
+  type: types.SAVE_SEARCH_HISTORY,
+  query
+})
+
+export const deleteSearchHistory = (query) => ({
+  type: types.DELETE_SEARCH_HISTORY,
+  query
+})
+
+export const clearSearchHistory = () => ({
+  type: types.CLEAR_SEARCH_HISTORY
+})

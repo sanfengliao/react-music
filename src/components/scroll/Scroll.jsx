@@ -9,16 +9,19 @@ export default class Scroll extends React.Component {
     data: [],
     listenScroll: false,
     pullup: false,
-    overflowHidden: true
+    overflowHidden: true,
+    beforeScroll: false
   }
   static propTypes = {
     probeType: PropTypes.number.isRequired,
     click: PropTypes.bool.isRequired,
     data: PropTypes.array.isRequired,
-    listenScroll: PropTypes.bool.isRequired,
-    pullup: PropTypes.bool.isRequired,
+    listenScroll: PropTypes.bool,
     onScroll: PropTypes.func,
+    pullup: PropTypes.bool,
     onScrollToEnd: PropTypes.func,
+    beforeScroll: PropTypes.bool,
+    onBeforeScorllStart: PropTypes.func,
     overflowHidden: PropTypes.bool
   }
   constructor(props) {
@@ -57,6 +60,12 @@ export default class Scroll extends React.Component {
     if (this.props.pullup) {
       this.scroll.on('scrollEnd', (pos) => {
         this.props.onScrollToEnd && this.props.onScrollToEnd(pos)
+      })
+    }
+    
+    if (this.props.beforeScroll) {
+      this.scroll.on('beforeScrollStart', () => {
+        this.props.onBeforeScorllStart && this.props.onBeforeScorllStart()
       })
     }
   }
