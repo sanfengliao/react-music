@@ -185,19 +185,18 @@
         transform: translate3d(0, 0, 0)
       .bottom
         transform: translate3d(0, 0, 0)
+    &.normal-exit, &.normal-enter-done
+      opacity 1
+      .top
+        transform: translate3d(0, 0, 0)
+      .bottom
+        transform: translate3d(0, 0, 0)
     &.normal-exit-active
        opacity: 0
       .top
         transform: translate3d(0, -100px, 0)
       .bottom
         transform: translate3d(0, 100px, 0)
-    &.normal-enter-done, &.normal-exit
-      opacity 1
-      .top
-        transform: translate3d(0, 0, 0)
-      .bottom
-        transform: translate3d(0, 0, 0)
-    
     &.normal-exit-done
       display none
   .mini-player

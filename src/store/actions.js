@@ -47,3 +47,32 @@ export const setPlayList = (list) => ({
   type: types.SET_PLAY_LIST,
   list
 })
+
+export const saveFavoriteList = (song) =>({
+  type: types.SAVE_FAVOREITE_LIST,
+  song
+})
+
+export const deleteFavoriteList = (song) => ({
+  type: types.DELETE_FAVORITE_LIST,
+  song
+})
+
+export const deleteSongList = () => ({
+  type: types.DELETE_SONG_LIST
+})
+
+export const deleteSong = (song) => ({
+  type: types.DELETE_SONG,
+  song
+})
+
+export const insertSong = (song) => ({
+  type: types.INSERT_SONG,
+  song
+})
+
+export const savePlayHistory = (song) => ({
+  type: types.SAVE_PLAY_HISTORY,
+  song
+})

@@ -4,12 +4,13 @@ import { CSSTransition } from 'react-transition-group'
 
 import ProgressBar from '../progress-bar/ProgressBar'
 import ProgressCircle from '../progress-circle/ProgressCircle'
+import PlayList from '../playlist/PlayList'
 
-import { setFullScreen, setPlayingState, setCurrentIndex, setPlayMode, setPlayList } from '../../store/actions'
+import { setFullScreen, savePlayHistory } from '../../store/actions'
 import { playMode } from '../../common/js/config'
+import playerWrap from '../../components/playerwrap/player-wrap'
 
 import "./index.styl"
-import { shuffle } from '../../common/js/utils';
 
 class Player extends React.Component {
   constructor(props) {
@@ -20,7 +21,9 @@ class Player extends React.Component {
     currentTime: 0,
     radius: 32,
     currentShow: 'cd',
-    songReady: true
+    songReady: true,
+    playListShow: false,
+    playError: true
   }
   back = () => {
     this.props.setFullScreen(false)
@@ -44,36 +47,18 @@ class Player extends React.Component {
     this.audioRef.current.currentTime = currentTime
   }
 
-  changeMode = () => {
-    const mode = (this.props.mode + 1) % 3
-    this.props.setPlayMode(mode)
-    let list = []
-    if (mode === playMode.random) {
-      list = shuffle(this.props.sequenceList)
-    } else {
-      list = this.props.sequenceList
-    }
-    this._resetCurrentIndex(list)
-    this.props.setPlayList(list)
-  }
-  
-  _resetCurrentIndex = (list) => {
-    let index = list.findIndex((item) => {
-      return item.id === this.props.currentSong.id;
-    })
-    this.props.setCurrentIndex(index);
-  }
-
-  iconMode = () => {
-    return this.props.mode === playMode.sequence ? 'icon-sequence' : this.props.mode === playMode.loop ? 'icon-loop' : 'icon-random'
-  }
-
   disableCls = () => {
     return this.state.songReady ? '' : 'disable'
   }
 
   playIcon = () => {
     return this.props.playing ? 'icon-pause' : 'icon-play'
+  }
+
+  onPlayListClose = () => {
+    this.setState({
+      playListShow: false
+    })
   }
 
   prev = () => {
@@ -86,7 +71,7 @@ class Player extends React.Component {
       return
     }
     let index = currentIndex - 1;
-    if (index == -1) {
+    if (index === -1) {
       index = playList.length-1;
     }
     if (!playing) {
@@ -122,23 +107,7 @@ class Player extends React.Component {
     })
   }
 
-  toggleFavorite = () => {
-
-  }
-
-  getFavoriteIcon = (song) => {
-    if (this.isFavorite(song)) {
-      return 'icon-favorite'
-    }
-    return 'icon-not-favorite'
-  }
-
-  isFavorite = (song) => {
-    const index = this.props.favoriteList.findIndex((item) => {
-      return item.id === song.id
-    })
-    return index > -1
-  }
+  
   loop() {
     this.audioRef.currentTime = 0
     this.audioRef.play()
@@ -151,8 +120,11 @@ class Player extends React.Component {
     return this.props.playing ? 'play' : 'play-pause'
   }
 
-  showPlaylist = () => {
-
+  showPlaylist = (e) => {
+    e.stopPropagation()
+    this.setState({
+      playListShow: true
+    })
   }
 
   togglePlaying = (e) => {
@@ -174,10 +146,13 @@ class Player extends React.Component {
     this.setState({
       songReady: true
     })
+    this.props.savePlayHistory(this.props.currentSong)
   }
 
   error = (e) => {
-    console.log(e)
+    this.setState({
+      playError: true
+    })
   }
 
   onTimeUpdate = (e) => {
@@ -195,25 +170,29 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    this.audioRef.play && this.audioRef.play()
+    if (!this.state.playError) {
+      this.audioRef.play && this.audioRef.play()
+    }
   }
 
   componentDidUpdate() {
-    if (this.props.playing) {
-      this.audioRef.play && this.audioRef.play()
-    } else {
-      this.audioRef.play && this.audioRef.pause()
+    if (!this.state.playError) {
+      if (this.props.playing) {
+        this.audioRef.play && this.audioRef.play()
+      } else {
+        this.audioRef.play && this.audioRef.pause()
+      }
     }
   }
 
   render() {
     const { fullScreen, currentSong, playList } = this.props
-    const { currentTime, radius } = this.state
+    const { currentTime, radius, playListShow } = this.state
     let percent = currentTime / currentSong.duration
     let display = playList.length > 0 ? 'block': 'none'
     return (
       <div className="player" style={{display: display}}>
-        <CSSTransition in={fullScreen} timeout={400} classNames="normal">
+        <CSSTransition in={fullScreen} unmountOnExit mountOnEnter timeout={400} classNames="normal">
           <div className="normal-player">
             <div className="background">
               <img width="100%" height="100%" src={currentSong.image} alt={currentSong.name}/>
@@ -249,8 +228,8 @@ class Player extends React.Component {
                 <div className="time time-r">{this.format(currentSong.duration)}</div>
               </div>
               <div className="operators">
-                <div className="icon i-left" onClick={this.changeMode}>
-                  <i className={this.iconMode()}></i>
+                <div className="icon i-left" onClick={this.props.changeMode}>
+                  <i className={this.props.iconMode()}></i>
                 </div>
                 <div className={"icon i-left " + this.disableCls()}>
                   <i onClick={this.prev} className="icon-prev"></i>
@@ -262,7 +241,7 @@ class Player extends React.Component {
                   <i onClick={this.next} className="icon-next"></i>
                 </div>
                 <div className="icon i-right">
-                  <i onClick={() => this.toggleFavorite(currentSong)} className={this.getFavoriteIcon(currentSong)}></i>
+                  <i onClick={() => this.props.toggleFavorite(currentSong)} className={this.props.getFavoriteIcon(currentSong)}></i>
                 </div>
               </div>
             </div>
@@ -287,6 +266,7 @@ class Player extends React.Component {
             </div>
           </div>
         </CSSTransition>
+        <PlayList visible={playListShow} onClose={this.onPlayListClose}/>
         <audio ref={ref => this.audioRef = ref} src={currentSong.url} onPlay={this.ready} onError={this.error} onTimeUpdate={this.onTimeUpdate}
            onEnded={this.end}></audio>
       </div>
@@ -298,18 +278,10 @@ const mapStateToProps = (state) => ({
   currentIndex: state.get('currentIndex'),
   fullScreen: state.get('fullScreen'),
   playing: state.get('playing'),
-  playList: state.get('playList'),
-  currentSong: state.get('playList')[state.get('currentIndex')] || {},
-  sequenceList: state.get('sequenceList'),
-  mode: state.get('mode'),
-  favoriteList: state.get('favoriteList')
 })
 
 
 export default connect(mapStateToProps, {
   setFullScreen,
-  setPlayingState,
-  setCurrentIndex,
-  setPlayMode,
-  setPlayList
-})(Player)
+  savePlayHistory
+})(playerWrap(Player))

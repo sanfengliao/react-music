@@ -8,7 +8,8 @@ import Scroll from '../../components/scroll/Scroll'
 import SongList from '../../components/song-list/SongList'
 import NoResult from '../../components/no-result/NoResult'
 import wrapAnimation from '../../components/wrapper-animation/wrapperAnimation'
-import { randomPlay } from '../../store/actions'
+import { randomPlay, insertSong } from '../../store/actions'
+import Song from '../../common/js/song'
 
 import './index.styl'
 
@@ -36,10 +37,16 @@ class UserCenter extends React.Component {
     })
   }
   random = () => {
-
+    let list = this.state.currentIndex === 0 ? this.props.favoriteList : this.props.playHistory
+    if (list.length === 0) {
+      return
+    }
+    list = list.map(song => new Song(song))
+    this.props.randomPlay(list)
   }
-  onSelectSong = () => {
-
+  onSelectSong = (song) => {
+    console.log('song')
+    this.props.insertSong(new Song(song))
   }
 
   noResult = () => {
@@ -77,7 +84,7 @@ class UserCenter extends React.Component {
             currentIndex === 0 && (
               <Scroll data={favoriteList}>
                 <div className="list-inner">
-                  <SongList songs={favoriteList} onSelectSong={this.onSelectSong}/>
+                  <SongList songs={favoriteList} onSelect={this.onSelectSong}/>
                 </div>
               </Scroll>
             )
@@ -86,7 +93,7 @@ class UserCenter extends React.Component {
             currentIndex === 1 && (
               <Scroll data={favoriteList}>
                 <div className="list-inner">
-                  <SongList songs={playHistory} onSelectSong={this.onSelectSong}/>
+                  <SongList songs={playHistory} onSelect={this.onSelectSong}/>
                 </div>
               </Scroll>
             )
@@ -111,5 +118,6 @@ const mapStateToProps = (state) => ({
 
 
 export default connect(mapStateToProps, {
-  randomPlay
+  randomPlay,
+  insertSong
 })(withRouter(wrapAnimation(UserCenter)))
